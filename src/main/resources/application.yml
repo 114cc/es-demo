@@ -1,0 +1,20 @@
+server:
+  port: 8088
+
+spring:
+  profiles:
+    active: dev
+  elasticsearch:
+    uris: 101.132.63.26:9200
+
+elasticsearch:
+  host: 101.132.63.26
+  port: 9200
+
+logging:
+  level:
+    com.example: debug
+    druid.sql.Statement: debug
+    co.elastic: debug
+    org.elasticsearch.client.RestClient : debug
+    org.apache.http.client : debug
