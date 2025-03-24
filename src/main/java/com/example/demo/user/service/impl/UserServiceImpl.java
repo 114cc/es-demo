@@ -43,21 +43,17 @@ public class UserServiceImpl implements UserService {
         try {
             response = elasticsearchClient.search(builder -> builder
 //                            .query(q -> q.match(m -> m.field("name").query(keyWord)))
+                            .index("user")
                             // 年龄排序
-                            .sort(sort -> sort
-                                    .field(field -> field.field("age")
-                                            .order(SortOrder.Desc)))
+                            .sort(sort -> sort.field(field -> field.field("age").order(SortOrder.Desc)))
                             // 配置高亮
-                            .highlight(h -> h
-                                    .highlightQuery(hq -> hq.match(m -> m.field("name")
+                            .highlight(h ->
+                                    h.highlightQuery(hq -> hq.match(m -> m.field("name")
                                             .query(keyWord)))
-                                    .fields("name", f -> f
-                                            .fragmentSize(10)
-                                    )
-                            )
+                                            .fields("name", f -> f
+                                            .fragmentSize(10)))
                             .from(curPageNum)
                             .size(pageSize)
-                            .explain(true)
                             .aggregations("age", agg -> agg.terms(group -> group.field("age"))),
                     User.class);
         } catch (IOException e) {

@@ -26,7 +26,7 @@ import static org.springframework.web.server.ServerWebExchange.LOG_ID_ATTRIBUTE;
 
 /**
  * 类 名: EsClientConfig
- * 描 述:
+ * 描 述: ES客户端配置
  * 作 者: 王宇龙
  * 创 建：2025年03月19日
  */
@@ -41,15 +41,7 @@ public class ElasticSearchConfig {
 
     @Bean
     public ElasticsearchClient elasticsearchClient() {
-        RestClientBuilder builder = RestClient.builder(new HttpHost(host, port));
-        builder.setHttpClientConfigCallback(httpAsyncClientBuilder -> httpAsyncClientBuilder.addInterceptorFirst((HttpRequestInterceptor) (request, context) -> {
-            HttpEntityEnclosingRequest entityRequest = (HttpEntityEnclosingRequest) request;
-            HttpEntity entity = entityRequest.getEntity();
-            ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-            entity.writeTo(buffer);
-            log.info("request body:{}", buffer);
-        }));
-        RestClient restClient = builder.build();
+        RestClient restClient = RestClient.builder(new HttpHost(host, port)).build();
         ElasticsearchTransport transport = new RestClientTransport(restClient, new JacksonJsonpMapper());
         return new ElasticsearchClient(transport);
     }

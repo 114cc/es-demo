@@ -4,7 +4,6 @@ import com.example.demo.user.domain.User;
 import com.example.demo.user.dto.UserSaveDTO;
 import com.example.demo.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 

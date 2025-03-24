@@ -6,15 +6,19 @@ spring:
     active: dev
   elasticsearch:
     uris: 101.132.63.26:9200
+  kafka:
+    consumer:
+      bootstrap-servers: 101.132.63.26:9092
 
 elasticsearch:
   host: 101.132.63.26
   port: 9200
 
 logging:
+  config: classpath:logback-spring-${spring.profiles.active}.xml
   level:
     com.example: debug
     druid.sql.Statement: debug
     co.elastic: debug
     org.elasticsearch.client.RestClient : debug
-    org.apache.http.client : debug
+    org.apache.http.wire : debug
